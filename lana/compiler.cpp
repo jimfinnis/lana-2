@@ -707,7 +707,7 @@ void Compiler::scanEndFunc() {
     const char *funcptr = cg->writeContextToMemory();
                                              
     // write the function pointer out as a constant.
-    int funcdesc = lana->consts->create(CT_FUNC,&funcptr,flags,4);
+    int funcdesc = lana->consts->create(CT_FUNC,&funcptr,flags,sizeof(funcptr));
     
     // pop the compilation context
     cg->popContext();
