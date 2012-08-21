@@ -179,7 +179,7 @@ void Object::clearZombieReferences(){
 void Object::serialiseAll(Serialiser *s, const char *name, FILE *out) {
   serialise(s,name,out);
     // add to the hash
-  s->setHash((u32)this,name);
+  s->setHash((u64)this,name);
   serialisePropertyHash(s,name,out);
 }
 
@@ -237,7 +237,7 @@ void Object::serialise(Serialiser *s, const char *name, FILE *out) {
     if(getSuper()){ // must be cloned, not created
         const char *parentname;
         // first we have to make sure the superclass has already been serialised
-        parentname = s->getHash((u32)getSuper());
+        parentname = s->getHash((u64)getSuper());
         if(!parentname) {
             // damn, no - we have to serialise it as a temporary. This could result in recursion.
             sprintf(buf,"object%03d",tmpobjct++);

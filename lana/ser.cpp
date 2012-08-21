@@ -44,14 +44,14 @@ void Serialiser::write(FILE *out){
     }
 }
 
-void Serialiser::setHash(u32 k,const char *nam){
+void Serialiser::setHash(u64 k,const char *nam){
     //    printf("storing %lx as %s\n",k,nam);
     *(hash.set(k)) = stringStore->getOffset();
     char *s = stringStore->write(nam);
     stringStore->terminate();
 }
 
-const char *Serialiser::getHash(u32 k){
+const char *Serialiser::getHash(u64 k){
     if(hash.find(k)){
         return (const char *)stringStore->get(*hash.getval(),0);
     } else 
@@ -68,7 +68,7 @@ void Serialiser::serialiseValue(FILE *out, Value *v, const char *name){
     
     if(v->type->serHash) {
         // get the target of this object
-        u32 target = v->d.u;
+        u64 target = v->d.u;
         
         // this is in the hash?
         const char *t = getHash(target);
@@ -145,7 +145,7 @@ void ObjectType::serialiseAssignment(Serialiser *s,const char *name,FILE *out,Va
 // this is used if the object is being used as, say, a key
 void IterableType::serialise(class Serialiser *s,FILE *out,Value *v) const {
     Object *o = v->d.o;
-    const char *n = s->getHash((u32)o);
+    const char *n = s->getHash((u64)o);
     if(!n)
         throw Exception("serialisation error: object must be in hash if serialised as rhs");
     
@@ -160,7 +160,7 @@ void DictionaryType::serialiseAssignment(Serialiser *s,const char *name,FILE *ou
     // output header
     fprintf(out,"%s%s = dict()\n",s->indents(),name);
     // add to the hash
-    s->setHash((u32)d,name);
+    s->setHash((u64)d,name);
     
     s->lana->recreateIndent++;
     
@@ -194,7 +194,7 @@ void DictionaryType::serialiseAssignment(Serialiser *s,const char *name,FILE *ou
         // getStr() value, otherwise we need to make sure it actually is in the hash
         if(key->type->serHash){
             const char *keyname;
-            u32 k = key->d.u;
+            u64 k = key->d.u;
             const char *n = s->getHash(k);
             if(!n){
                 // if the key isn't a value in the hash, serialise it
@@ -229,7 +229,7 @@ void DictionaryType::serialiseAssignment(Serialiser *s,const char *name,FILE *ou
 }
 
 
-const char *Serialiser::preSerialise(FILE *out, u32 target,Type *tp){
+const char *Serialiser::preSerialise(FILE *out, u64 target,Type *tp){
     char buf[32];
     if(!tp->serHash)
         throw Exception(NULL).set("cannot preserialise the type '%s'",tp->getName());

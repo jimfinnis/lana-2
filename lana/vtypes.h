@@ -259,7 +259,7 @@ struct BooleanType : public SimpleHashableType {
 struct IterableType : public SimpleHashableType {
     virtual const char *repr(const Value *v) const {
         startRepr();
-        sprintf(buf+strlen(buf),"%x/(ct%d)",(u32)v->d.gc,v->d.gc->refct);
+        sprintf(buf+strlen(buf),"%p/(ct%d)",v->d.gc,v->d.gc->refct);
         return buf;
     } 
     virtual Iterator<Value *> *createIter(Value *v,

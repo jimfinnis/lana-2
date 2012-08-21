@@ -100,7 +100,7 @@ void CycleDetector::detect(){
     
     for(p=mainlist.head();p;p=q){
         q=mainlist.next(p);
-        dfprintf("%x is in a cycle  - deleting\n",(u32)p);
+        dfprintf("%p is in a cycle  - deleting\n",p);
         delete p;
     }
     

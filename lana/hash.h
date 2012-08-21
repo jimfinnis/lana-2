@@ -40,7 +40,7 @@ struct HashEnt {
     Value v;
     
     /// the hash calculated from the key
-    u32 hash;
+    u64 hash;
     
     /// the slot is initialised to free by setting the key value to None
     HashEnt(){k.initNone();}
@@ -64,7 +64,7 @@ struct HashEnt {
 };
 
 /// This is an implementation of a hash table mapping Values to Values.
-/// There also exists IntKeyedHash, which is a generic mapping u32 to 
+/// There also exists IntKeyedHash, which is a generic mapping u64 to 
 /// anything.
 ///
 /// Both implementations are based on the Python dictionary, from notes
@@ -98,7 +98,7 @@ public:
     
     virtual void set(Value *k,Value *val){
         
-        u32 hash = k->getHash();
+        u64 hash = k->getHash();
         HashEnt *ent = look(k,hash);
         int n_used = used;
         
@@ -221,7 +221,7 @@ public:
     /// scan, looking for either a slot with this key or the
     /// slot where this key would go
     
-    HashEnt *look(Value *k,u32 hash){
+    HashEnt *look(Value *k,u64 hash){
         register unsigned int slot = hash & mask;
         register HashEnt *ent = table+slot;
         register HashEnt *freeslot;

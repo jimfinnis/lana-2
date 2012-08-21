@@ -2,7 +2,8 @@
 #include "tokeniser.h"
 #include "tokens.h"
 
-lana::TokenRegistry tokens[] = {
+namespace lana {
+TokenRegistry tokens[] = {
     "*c=", T_EQUALS,
     "*c*", T_MUL,
     "*c+", T_ADD,
@@ -66,3 +67,4 @@ lana::TokenRegistry tokens[] = {
     
     NULL, -10
 };
+}

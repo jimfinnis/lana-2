@@ -175,7 +175,7 @@ struct ObjectType : public IterableType {
 struct PropRefType : public Type {
     virtual const char *repr(const Value *v) const {
         startRepr();
-        sprintf(buf+strlen(buf),"%x(ct%d)/%d",(u32)v->d.o,
+        sprintf(buf+strlen(buf),"%p(ct%d)/%d",v->d.o,
                 v->d.gc->refct,v->d2.u);
         return buf;
     } 

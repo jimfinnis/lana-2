@@ -108,7 +108,7 @@ int ListType::getSize(Value *v){
 
 const char *ListRefType::repr(const Value *v) const {
     startRepr();
-    sprintf(buf+strlen(buf),"%x/(ct%d)[%d]",(u32)v->d.list,
+    sprintf(buf+strlen(buf),"%p/(ct%d)[%d]",v->d.list,
             v->d.gc->refct,v->d2.i);
     return buf;
 }

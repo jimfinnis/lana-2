@@ -10,6 +10,7 @@
 
 namespace lana {
 
+typedef unsigned long u64;
 typedef unsigned int u32;
 typedef signed int s32;
 typedef unsigned short u16;

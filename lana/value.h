@@ -55,7 +55,7 @@ public:
     /// increment the refct, throwing an exception if it wraps
     void incRefCt(){
         refct++;
-        dfprintf("++ incrementing count for %x, now %d\n",(u32)this,refct);
+        dfprintf("++ incrementing count for %p, now %d\n",this,refct);
         if(refct==0)
             throw Exception("ref count too large");
     }
@@ -63,7 +63,7 @@ public:
     /// decrement the reference count returning true if it became zero
     bool decRefCt(){
         --refct;
-        dfprintf("-- decrementing count for %x, now %d\n",(u32)this,refct);
+        dfprintf("-- decrementing count for %p, now %d\n",this,refct);
         return refct==0;
     }
     
@@ -383,7 +383,7 @@ inline void decRefSimpleMalloc(void *p){
     ct = (refct_t *)p;
     (*ct)--;
     if(*ct==0){
-        dfprintf("freeing %s\n",(u32)(((char *)p)+sizeof(refct_t)));
+        dfprintf("freeing %s\n",(((char *)p)+sizeof(refct_t)));
         free(p);
     }
 }        
@@ -392,7 +392,7 @@ inline void decRefSimpleMalloc(void *p){
 inline void dumprefsimplemalloc(const char *msg,void *p){
     refct_t ct;
     ct = *(refct_t *)p;
-    dfprintf("%s : refct for %x = %x\n",msg,(u32)p,ct);
+    dfprintf("%s : refct for %p = %p\n",msg,p,ct);
 }
 
 /// increment the refct which precedes simple

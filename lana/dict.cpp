@@ -71,7 +71,7 @@ const char *DictRefType::repr(const Value *v) const {
     Value *k = Dict::getKey(v->d2.i);
     strcpy(buf2,k->repr());
     startRepr();
-    sprintf(buf+strlen(buf),"%x/(ct%d)[%s]",(u32)v->d.o,v->d.gc->refct,buf2);
+    sprintf(buf+strlen(buf),"%p/(ct%d)[%s]",v->d.o,v->d.gc->refct,buf2);
     return buf;
 }
 

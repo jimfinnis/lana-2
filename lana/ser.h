@@ -45,10 +45,10 @@ public:
     /// this is uses to associate a value with a name. It should only be called on complex
     /// objects which we want to define once only - typically a compound like an object or
     /// dictionary. The key is the d.u field of a value.
-    void setHash(u32 key,const char *nam);
+    void setHash(u64 key,const char *nam);
     
     /// this gets a value in the hash, or NULL if not there
-    const char *getHash(u32 key);
+    const char *getHash(u64 key);
     
     /// general-purpose "preserialiser" - call this with a hashable value
     /// and the serialiser will generate an assignment if necessary, and
@@ -56,7 +56,7 @@ public:
     /// for which Type::serHash would be true</b>.
     /// NOTE - the returned value MUST BE FREED AFTER USE.
     
-    const char *preSerialise(FILE *out, u32 target,Type *tp);
+    const char *preSerialise(FILE *out, u64 target,Type *tp);
 };
 
 }
