@@ -106,6 +106,8 @@ public:
         a->globalNativeHostedMethod("sin",1,true,this,MT(sin));
         a->globalNativeHostedMethod("cos",1,true,this,MT(cos));
         a->globalNativeHostedMethod("tan",1,true,this,MT(tan));
+        
+        a->globalNativeHostedMethod("instring",1,true,this,MT(instring));
     }
     
     /// called after setting argc,argv to create the list
@@ -255,7 +257,15 @@ private:
     
     
     
+    //////////// other stuff     /////////////////////////////////////////
     
+    void instring(){
+        char *s = api->popStr();
+        printf(s);
+        char buf[256];
+        fgets(buf,256,stdin);
+        api->pushStr(buf);
+    }
     
     void native(){
         char *s = api->popStr();
