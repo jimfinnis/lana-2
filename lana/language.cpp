@@ -18,6 +18,10 @@
 /// It's bound to a global variable "arithEpsilon"
 float *neareq_epsilon;
 
+namespace lana {
+extern TokenRegistry tokens[];
+}
+
 Language::Language(class API *a){
     eofdcomment=NULL;
     currentRecreateLDT = NULL;
@@ -27,7 +31,6 @@ Language::Language(class API *a){
     
     tok = new Tokeniser();
     tok->init();
-    extern TokenRegistry tokens[];
     tok->settokens(tokens);
     consts = new Constants();
     globs = new GlobalVars(consts);
