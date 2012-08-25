@@ -23,10 +23,14 @@ void TestFixtureLana::testSerialisation(){
     ses->feed("$spoon=make()");
     // save it
     ses->feed("savevar $spoon \"tmp1\"");
+    printf("Saved data\n");
     // now delete the spoon global
     ses->feed("$spoon=0");
+    ses->feed("gc()");
+    printf("Deleted old copy\n");
     // and load in the one we just saved
     ses->feed("load \"tmp1\"");
+    printf("Loaded data, comparing with new tree...\n");
     // now compare that with a fresh tree, making sure they're equal
     CPPUNIT_ASSERT_BOOLTEST("make().equal($spoon)",true);
     
